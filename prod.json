@@ -20,7 +20,7 @@
                     "SkipUpdate": false,
                     "TemplatePath": "./templates/mumbai/core/mumbai-2-securitygroup.json"
                 },
-                "Mumbai-DS":{
+                "Mumbai-DS-1":{
                     "Parameters": {
                         "DsAmiId":"ami-01f7ac98f4c80de69",
                         "DsInstanceType":"t2.micro",
