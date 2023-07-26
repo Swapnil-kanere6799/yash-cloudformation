@@ -251,9 +251,9 @@
               }
             ],
             "Essential": true,
-            "Image": "bitnami/prometheus",
+            "Image": "tryretool/backend:2.103.12",
             "MemoryReservation": 64,
-            "Name": "prometheus",
+            "Name": "retool",
             "PortMappings": [
               {
                 "ContainerPort": 9090,
