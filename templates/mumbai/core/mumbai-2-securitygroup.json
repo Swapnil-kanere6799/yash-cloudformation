@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "DS Security Group",
+  "Description": "Core Security Group Stack",
   "Outputs": {
     "DS2SecurityGroupId": {
       "Description": "DS2 Security Group Id",
@@ -18,7 +18,7 @@
     }
   },
   "Resources": {
-    "MumbaiDsSecurityGroup": {
+    "DSSecurityGroup": {
       "Properties": {
         "GroupDescription": "DS Security Group",
         "SecurityGroupIngress": [
@@ -44,7 +44,7 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "MumbaiDsSecurityGroup"
+            "Value": "DS Security Group"
           }
         ],
         "VpcId": {
