@@ -91,7 +91,7 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 		ExecutionRoleArn: cloudformation.String(cloudformation.Ref("DsEcsTaskExecutionRole")),
 		ContainerDefinitions: []ecs.TaskDefinition_ContainerDefinition{
 			{
-				Name:  "retool",
+				Name:  "ds",
 				Image: "tryretool/backend:2.103.12",
 				Environment: []ecs.TaskDefinition_KeyValuePair{
 					{
