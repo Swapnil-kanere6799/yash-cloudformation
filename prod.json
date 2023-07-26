@@ -1,6 +1,6 @@
 {
     "BucketName": "yashprime",
-    "BucketRegion": "eu-west-1", "Parallel": "true",
+    "BucketRegion": "ap-south-1", "Parallel": "true",
     "Stacks":{
         "ap-south-1":{
                 "Mumbai-Network":{
