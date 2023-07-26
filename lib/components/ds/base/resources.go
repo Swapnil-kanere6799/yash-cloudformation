@@ -1,9 +1,9 @@
 package dsbase
 
 import (
-	"github.com/awslabs/goformation/v7/cloudformation/elasticloadbalancingv2"
 	"github.com/awslabs/goformation/v7/cloudformation"
 	"github.com/awslabs/goformation/v7/cloudformation/autoscaling"
+	"github.com/awslabs/goformation/v7/cloudformation/elasticloadbalancingv2"
 	"github.com/awslabs/goformation/v7/cloudformation/iam"
 )
 
@@ -101,7 +101,7 @@ func AddResourcesForDsBaseStack(template *cloudformation.Template, defaults DsBa
 		Matcher: &elasticloadbalancingv2.TargetGroup_Matcher{
 			HttpCode: cloudformation.String("200"),
 		},
-		Port:                    cloudformation.Int(80),
+		Port:                    cloudformation.Int(3000),
 		Protocol:                cloudformation.String("HTTP"),
 		TargetType:              cloudformation.String("instance"),
 		UnhealthyThresholdCount: cloudformation.Int(2),
@@ -125,7 +125,6 @@ func AddResourcesForDsBaseStack(template *cloudformation.Template, defaults DsBa
 		HealthyThresholdCount:      cloudformation.Int(5),
 		Matcher: &elasticloadbalancingv2.TargetGroup_Matcher{
 			HttpCode: cloudformation.String("200-310"),
-			
 		},
 		Port:                    cloudformation.Int(9090),
 		Protocol:                cloudformation.String("HTTP"),
@@ -151,7 +150,7 @@ func AddResourcesForDsBaseStack(template *cloudformation.Template, defaults DsBa
 			},
 		},
 		LoadBalancerArn: cloudformation.Ref("DsElb"),
-		Port:            cloudformation.Int(80),
+		Port:            cloudformation.Int(3000),
 		Protocol:        cloudformation.String("HTTP"),
 	}
 	template.Resources["DsPrometheusElbListener"] = &elasticloadbalancingv2.Listener{

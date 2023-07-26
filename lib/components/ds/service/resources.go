@@ -36,10 +36,10 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 				},
 			},
 		},
-		PolicyName: cloudformation.Join("-",[]string{
-										cloudformation.Ref("AWS::StackName"),
-										"DsEcsTaskRolePolicy",	
-									}),
+		PolicyName: cloudformation.Join("-", []string{
+			cloudformation.Ref("AWS::StackName"),
+			"DsEcsTaskRolePolicy",
+		}),
 		Roles: []string{
 			cloudformation.Ref("DsEcsTaskRole"),
 		},
@@ -73,9 +73,9 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 				},
 			},
 		},
-		PolicyName: cloudformation.Join("-",[]string{
+		PolicyName: cloudformation.Join("-", []string{
 			cloudformation.Ref("AWS::StackName"),
-			"DsEcsTaskExecutionRolePolicy",	
+			"DsEcsTaskExecutionRolePolicy",
 		}),
 		Roles: []string{
 			cloudformation.Ref("DsEcsTaskExecutionRole"),
@@ -91,17 +91,17 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 		ExecutionRoleArn: cloudformation.String(cloudformation.Ref("DsEcsTaskExecutionRole")),
 		ContainerDefinitions: []ecs.TaskDefinition_ContainerDefinition{
 			{
-				Name: "ds",
-				Image: "httpd",
+				Name:  "retool",
+				Image: "tryretool/backend:2.103.12",
 				Environment: []ecs.TaskDefinition_KeyValuePair{
 					{
 						Name:  cloudformation.String("App Name"),
 						Value: cloudformation.String("DS"),
 					},
 				},
-				Essential: cloudformation.Bool(true),
-				MemoryReservation: cloudformation.Int(256),
-				Privileged:        cloudformation.Bool(false),
+				Essential:              cloudformation.Bool(true),
+				MemoryReservation:      cloudformation.Int(256),
+				Privileged:             cloudformation.Bool(false),
 				ReadonlyRootFilesystem: cloudformation.Bool(false),
 				Ulimits: []ecs.TaskDefinition_Ulimit{
 					{
@@ -112,8 +112,8 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 				},
 				PortMappings: []ecs.TaskDefinition_PortMapping{
 					{
-						ContainerPort: cloudformation.Int(80),
-						HostPort:      cloudformation.Int(80),
+						ContainerPort: cloudformation.Int(3000),
+						HostPort:      cloudformation.Int(3000),
 						Protocol:      cloudformation.String("tcp"),
 					},
 				},
@@ -128,10 +128,10 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 		},
 		HealthCheckGracePeriodSeconds: cloudformation.Int(60),
 		LaunchType:                    cloudformation.String("EC2"),
-		LoadBalancers:                 []ecs.Service_LoadBalancer{
+		LoadBalancers: []ecs.Service_LoadBalancer{
 			{
-				ContainerName:  cloudformation.String("ds"),
-				ContainerPort:  cloudformation.Int(80),
+				ContainerName: cloudformation.String("ds"),
+				ContainerPort: cloudformation.Int(80),
 				TargetGroupArn: cloudformation.String(cloudformation.ImportValue(
 					cloudformation.Join("-", []string{
 						cloudformation.Ref("AWS::StackName"),
@@ -154,7 +154,7 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 		ExecutionRoleArn: cloudformation.String(cloudformation.Ref("DsEcsTaskExecutionRole")),
 		ContainerDefinitions: []ecs.TaskDefinition_ContainerDefinition{
 			{
-				Name: "prometheus",
+				Name:  "prometheus",
 				Image: "bitnami/prometheus",
 				Environment: []ecs.TaskDefinition_KeyValuePair{
 					{
@@ -162,9 +162,9 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 						Value: cloudformation.String("prometheus"),
 					},
 				},
-				Essential: cloudformation.Bool(true),
-				MemoryReservation: cloudformation.Int(64),
-				Privileged:        cloudformation.Bool(false),
+				Essential:              cloudformation.Bool(true),
+				MemoryReservation:      cloudformation.Int(64),
+				Privileged:             cloudformation.Bool(false),
 				ReadonlyRootFilesystem: cloudformation.Bool(false),
 				Ulimits: []ecs.TaskDefinition_Ulimit{
 					{
@@ -191,10 +191,10 @@ func AddResourcesForDsServiceStack(template *cloudformation.Template) {
 		},
 		HealthCheckGracePeriodSeconds: cloudformation.Int(65),
 		LaunchType:                    cloudformation.String("EC2"),
-		LoadBalancers:                 []ecs.Service_LoadBalancer{
+		LoadBalancers: []ecs.Service_LoadBalancer{
 			{
-				ContainerName:  cloudformation.String("prometheus"),
-				ContainerPort:  cloudformation.Int(9090),
+				ContainerName: cloudformation.String("prometheus"),
+				ContainerPort: cloudformation.Int(9090),
 				TargetGroupArn: cloudformation.String(cloudformation.ImportValue(
 					cloudformation.Join("-", []string{
 						cloudformation.Ref("AWS::StackName"),
